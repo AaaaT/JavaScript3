@@ -24,17 +24,48 @@ select {
     border-radius: 20px;
 }
 
+#container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 1 rem;
+}
+
 #forRepoBlock {
     color: purple;
     font-size: .9rem;
-    padding: 1px 25px;
+    padding: 4px 4px;
     margin-left: 2px;
-    border-radius: 20px;
+    
+    float: center;
+    margin-top: 1rem;
+    width: 60%;
+
+    border-style: bold;
+    border-radius: 0%;
+    padding: 10px;
+    background:rgb(216, 142, 188);
+    opacity: 0.8;
+
+    box-shadow: 10px 5px 5px grey;
 }
 #forContributorsBlock {
-    color: brown;
+    color: rgb(112, 13, 13);
     font-size: .9rem;
-    padding: 4px 25px;
-    margin-left: 25px;
-    border-radius: 20px;
+    padding: 4px 4px;
+    margin-left: 2px;
+
+    display: flex;
+    flex-direction: row;
+    
+    margin: 1rem;
+    width: 40%;
+
+    border-style: bold;
+    border-radius: 0%;
+    padding: 10px;
+    background:rgb(155, 118, 92);
+    opacity: 0.8;
+
+    box-shadow: 10px 5px 5px grey;
 }
