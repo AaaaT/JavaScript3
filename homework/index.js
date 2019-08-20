@@ -32,7 +32,7 @@
 
   function main(url) {
     fetchJSON(url, (err, data) => {
-      const root = document.getElementById('root','forRepoBlock', 'forContributorsBlock');
+      const root = document.getElementById('root');
       if (err) {
         createAndAppend('div', root, { text: err.message, class: 'alert-error' });
       } else {
@@ -66,8 +66,12 @@
           const contribsUrl = repo.contributors_url;
           fetchJSON(contribsUrl, (err, contribData) => {
             contribData.forEach(contributor => {
-              createAndAppend('div', contribs, { text: contributor.login });
+              createAndAppend('p', contribs, { text: ':' });
+              createAndAppend('img', contribs, { src: contributor.avatar_url, height: 30, class: 'picture' });
+              createAndAppend('div', contribs, { text: contributor.login, class: 'contributorName' });
+              createAndAppend('div', contribs, { text: contributor.contributions, class: 'numberContributions' });
             });
+          
           });
         });
       }
