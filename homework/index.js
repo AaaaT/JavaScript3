@@ -39,6 +39,7 @@
         //createAndAppend('pre', root, { text: JSON.stringify(data, null, 2) });
         const select = createAndAppend('select', root);
         createAndAppend('option', select, { text: 'Click here to choose a Repository' });
+        
         data.forEach(repo => {
           const name = repo.name;
           createAndAppend('option', select, { text: name });
@@ -66,7 +67,7 @@
           const contribsUrl = repo.contributors_url;
           fetchJSON(contribsUrl, (err, contribData) => {
             contribData.forEach(contributor => {
-              createAndAppend('p', contribs, { text: ':' });
+              createAndAppend('p', contribs, { text: '' });
               createAndAppend('img', contribs, { src: contributor.avatar_url, height: 30, class: 'picture' });
               createAndAppend('div', contribs, { text: contributor.login, class: 'contributorName' });
               createAndAppend('div', contribs, { text: contributor.contributions, class: 'numberContributions' });

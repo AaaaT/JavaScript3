@@ -28,11 +28,13 @@ select {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    flex-flow: row nowrap;
+
     margin: 1 rem;
 }
 
 #forRepoBlock {
-    color: purple;
+    color: rgb(43, 0, 43);
     font-size: .9rem;
     padding: 4px 4px;
     margin-left: 2px;
@@ -44,28 +46,31 @@ select {
     border-style: bold;
     border-radius: 0%;
     padding: 10px;
-    background:rgb(216, 142, 188);
-    opacity: 0.8;
+    background:rgba(230, 178, 210, 0.5);
+    opacity: 1;
 
     box-shadow: 10px 5px 5px grey;
 }
 #forContributorsBlock {
-    color: rgb(112, 13, 13);
+    color: rgb(48, 0, 20);
     font-size: .9rem;
     padding: 4px 4px;
     margin-left: 2px;
 
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 33.3333% 33.3333% 33.3333%;
+    grid-template-rows: auto;
+ 
     
     margin: 1rem;
     width: 40%;
 
+
     border-style: bold;
     border-radius: 0%;
     padding: 10px;
-    background:rgb(155, 118, 92);
-    opacity: 0.8;
+    background:rgba(231, 185, 152, 0.5);
+    opacity: 1;
 
     box-shadow: 10px 5px 5px grey;
 }
