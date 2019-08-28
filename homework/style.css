@@ -55,7 +55,7 @@ select {
     margin-left: 2px;
 
     display: grid;
-    grid-template-columns: 33.3333% 33.3333% 33.3333%;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
  
     
@@ -72,7 +72,6 @@ select {
     box-shadow: 10px 5px 5px grey;
 }
 span {
-    display: row;
     font-size: .8rem;  
     margin: 3%;
 }

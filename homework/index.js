@@ -36,24 +36,35 @@
     return elem;
   }
 
+  function compare(a, b) {
+    if (a.name<b.name){
+      return -1;
+    }
+    if (a.name>b.name){
+      return 1
+    }
+    return 0;
+  }
   
   function main(url) {
     fetchJSON(url)
       .then(repositoryData => {
         const select = createAndAppend('select', root);
-        createAndAppend('option', select, { text: 'Click here to choose a Repository' });
+        // createAndAppend('option', select, { text: 'Click here to choose a Repository' });
       
-        repositoryData.forEach(repo => {
+        let alphabeticalSorting = repositoryData.sort(compare);
+        alphabeticalSorting.forEach(repo => {
           const name = repo.name;
           createAndAppend('option', select, { text: name });
         });
 
         const repoInfo = createAndAppend('div', forRepoBlock);
+
         const contribs = createAndAppend('div', forContributorsBlock);
         select.addEventListener('change', evt => {
           const selectedRepo = evt.target.value;
-          const repo = repositoryData.filter(r => r.name == selectedRepo)[0];
-          console.log(repo);
+          const repo = alphabeticalSorting.filter(r => r.name == selectedRepo)[0];
+          // console.log(repo);
           repoInfo.innerHTML = '';
           contribs.innerHTML = '';
 
