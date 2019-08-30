@@ -36,63 +36,84 @@
     return elem;
   }
 
+  function compare(a, b) {
+    if (a.name<b.name){
+      return -1;
+    }
+    if (a.name>b.name){
+      return 1
+    }
+    return 0;
+  }
   
   function main(url) {
     fetchJSON(url)
       .then(repositoryData => {
         const select = createAndAppend('select', root);
-        createAndAppend('option', select, { text: 'Click here to choose a Repository' });
+        // createAndAppend('option', select, { text: 'Click here to choose a Repository' });
       
-        repositoryData.forEach(repo => {
+        let alphabeticalSorting = repositoryData.sort(compare);
+        alphabeticalSorting.forEach(repo => {
           const name = repo.name;
           createAndAppend('option', select, { text: name });
         });
 
         const repoInfo = createAndAppend('div', forRepoBlock);
         const contribs = createAndAppend('div', forContributorsBlock);
+
         select.addEventListener('change', evt => {
           const selectedRepo = evt.target.value;
-          const repo = repositoryData.filter(r => r.name == selectedRepo)[0];
-          console.log(repo);
-          repoInfo.innerHTML = '';
-          contribs.innerHTML = '';
-
-          const addInfo = (label, value) => {
-            const container = createAndAppend('div', repoInfo);
-            createAndAppend('span', container, { text: label });
-            createAndAppend('span', container, { text: value });
-          };
-          addInfo('Name: ', repo.name);
-          addInfo('Desciption: ', repo.description);
-          addInfo('Number of forks: ', repo.forks);
-          addInfo('Updated: ', new Date(repo.updated_at));
-
-          const contribsUrl = repo.contributors_url;
-          
-          fetchJSON(contribsUrl)
-          .then((contribData) => {
-            contribData.forEach(contributor => {
-              // createAndAppend('p', contribs, { text: 'hej'});
-              createAndAppend('img', contribs, { src: contributor.avatar_url, height: 40, class: 'picture' });
-              createAndAppend('span', contribs, { text: contributor.login, class: 'contributorName' });
-              createAndAppend('span', contribs, { text: contributor.contributions, class: 'numberContributions'});
-              createAndAppend('div', contribs, { text: '\n'});
-            }); 
-          })
-          .catch((err) => { 
-            const root = document.getElementById('root');
-            createAndAppend('div', root, { text: err.message, class: 'alert-error' });
-          })
+          const repo = alphabeticalSorting.filter(r => r.name == selectedRepo)[0];
+          getRepoData(repo, repoInfo, contribs); 
         });
+
+        let firstRepo = alphabeticalSorting[0]
+        getRepoData(firstRepo, repoInfo, contribs); 
       })
       .catch((err) => { 
         const root = document.getElementById('root');
         createAndAppend('div', root, { text: err.message, class: 'alert-error' });
       })
   } 
-   
+
+  function getRepoData(repo, repoInfo, contribs) {
+    
+    // console.log(repo);
+    repoInfo.innerHTML = '';
+    contribs.innerHTML = '';
+
+    const addInfo = (label, value) => {
+      const container = createAndAppend('div', repoInfo);
+      createAndAppend('span', container, { text: label });
+      createAndAppend('span', container, { text: value });
+    };
+    addInfo('Name: ', repo.name);
+    addInfo('Desciption: ', repo.description);
+    addInfo('Number of forks: ', repo.forks);
+    addInfo('Updated: ', new Date(repo.updated_at));
+
+    const contribsUrl = repo.contributors_url;
+    
+    fetchJSON(contribsUrl)
+    .then((contribData) => {
+      contribData.forEach(contributor => {
+        // createAndAppend('p', contribs, { text: 'hej'});
+        createAndAppend('img', contribs, { src: contributor.avatar_url, height: 40, class: 'picture' });
+        createAndAppend('span', contribs, { text: contributor.login, class: 'contributorName' });
+        createAndAppend('span', contribs, { text: contributor.contributions, class: 'numberContributions'});
+        createAndAppend('div', contribs, { text: '\n'});
+      }); 
+    })
+    .catch((err) => { 
+      const root = document.getElementById('root');
+      createAndAppend('div', root, { text: err.message, class: 'alert-error' });
+    })
+
+  }
 
   const HYF_REPOS_URL = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
 
   window.onload = () => main(HYF_REPOS_URL);
 }
+
+
