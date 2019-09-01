@@ -1,10 +1,4 @@
-// Tested Steps
-// console.log(person1.name + ' is ' + person1.age + ', ' + person1.height + ' cm tall'+ ' and has ' + person1.eyecolour + ' eyes')
-// console.log(person1.descriptiveSentence()) //John is 25, 180 cm tall and has blue eyes
-// console.log(person2.descriptiveSentence()) //Jane is 28, 160 cm tall and has green eyes.
-// console.log(people.descriptiveSentence())  
-//John is 25, 180 cm tall and has blue eyes 
-//Jane is 28, 160 cm tall and has green eyes.
+
 
 class Person {
   constructor (name, age, height, eyecolour) {
@@ -64,4 +58,13 @@ const morePeople = new MorePeople (peopleList)
 
 
 console.log(morePeople.descriptiveSentence()) 
+
+
+// Tested Steps
+// console.log(person1.name + ' is ' + person1.age + ', ' + person1.height + ' cm tall'+ ' and has ' + person1.eyecolour + ' eyes')
+// console.log(person1.descriptiveSentence()) //John is 25, 180 cm tall and has blue eyes
+// console.log(person2.descriptiveSentence()) //Jane is 28, 160 cm tall and has green eyes.
+// console.log(people.descriptiveSentence())  
+              //John is 25, 180 cm tall and has blue eyes 
+              //Jane is 28, 160 cm tall and has green eyes.
 
