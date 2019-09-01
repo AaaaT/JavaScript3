@@ -3,6 +3,11 @@
 /* global Util */
 
 // eslint-disable-next-line no-unused-vars
+
+
+// 1. Use Utils.createAndAppend in the render methods of Repository and Contributor
+
+
 class Contributor {
   constructor(contributor) {
     this.contributor = contributor;

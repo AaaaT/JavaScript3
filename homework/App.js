@@ -2,6 +2,12 @@
 
 /* global Util, Repository, Contributor */
 
+// 2. Render select in initialize method of App
+
+// 3. Call fetchContributorsAndRender method of App when starting and when the user changes select
+
+// 4. Show errors to the user (update renderError of App)
+
 class App {
   constructor(url) {
     this.initialize(url);
