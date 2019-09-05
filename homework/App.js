@@ -2,12 +2,6 @@
 
 /* global Util, Repository, Contributor */
 
-// 2. Render select in initialize method of App
-
-// 3. Call fetchContributorsAndRender method of App when starting and when the user changes select
-
-// 4. Show errors to the user (update renderError of App)
-
 class App {
   constructor(url) {
     this.initialize(url);
@@ -17,14 +11,89 @@ class App {
    * Initialization
    * @param {string} url The GitHub URL for obtaining the organization's repositories.
    */
+
   async initialize(url) {
-    // Add code here to initialize your app
-    // 1. Create the fixed HTML elements of your page
-    // 2. Make an initial XMLHttpRequest using Util.fetchJSON() to populate your <select> element
-
     const root = document.getElementById('root');
+    Util.createAndAppend('h1', root, { text: 'REPOSITORES' });
 
-    Util.createAndAppend('h1', root, { text: 'It works!' }); // TODO: replace with your own code
+    function compare(a, b) {
+      if (a.name<b.name){
+        return -1;
+      }
+      if (a.name>b.name){
+        return 1
+      }
+      return 0;
+    }
+
+
+    try {
+      const repositoryData = await Util.fetchJSON(url);
+      const select = Util.createAndAppend('select', root);
+        // createAndAppend('option', select, { text: 'Click here to choose a Repository' });
+      
+        let alphabeticalSorting = repositoryData.sort(compare);
+        alphabeticalSorting.forEach(repo => {
+          const name = repo.name;
+          Util.createAndAppend('option', select, { text: name });
+        });
+
+        const repoInfo = Util.createAndAppend('div', forRepoBlock);
+        const contribs = Util.createAndAppend('div', forContributorsBlock);
+
+        select.addEventListener('change', evt => {
+          const selectedRepo = evt.target.value;
+          const repo = alphabeticalSorting.filter(r => r.name == selectedRepo)[0];
+          getRepoData(repo, repoInfo, contribs); 
+        });
+
+        let firstRepo = alphabeticalSorting[0]
+        getRepoData(firstRepo, repoInfo, contribs); 
+    }
+    catch(err) {
+      const root = document.getElementById('root');
+      Util.createAndAppend('div', root, { text: err.message, class: 'alert-error' });
+    }  
+    
+
+
+
+
+    async function getRepoData(repo, repoInfo, contribs) {
+      repoInfo.innerHTML = '';
+      contribs.innerHTML = '';
+  
+      const addInfo = (label, value) => {
+        const container = Util.createAndAppend('div', repoInfo);
+        Util.createAndAppend('span', container, { text: label });
+        Util.createAndAppend('span', container, { text: value });
+      };
+      addInfo('Name: ', repo.name);
+      addInfo('Desciption: ', repo.description);
+      addInfo('Number of forks: ', repo.forks);
+      addInfo('Updated: ', new Date(repo.updated_at));
+  
+      const contribsUrl = repo.contributors_url;
+      try {
+        const contribData = await Util.fetchJSON(contribsUrl);
+        contribData.forEach(contributor => {
+          // createAndAppend('p', contribs, { text: 'hej'});
+          Util.createAndAppend('img', contribs, { src: contributor.avatar_url, height: 40, class: 'picture' });
+          Util.createAndAppend('span', contribs, { text: contributor.login, class: 'contributorName' });
+          Util.createAndAppend('span', contribs, { text: contributor.contributions, class: 'numberContributions'});
+          Util.createAndAppend('div', contribs, { text: '\n'});
+        }); 
+      }
+      catch(err) { 
+        const root = document.getElementById('root');
+        Util.createAndAppend('div', root, { text: err.message, class: 'alert-error' });
+      }
+    }
+
+
+
+
+
 
     try {
       const repos = await Util.fetchJSON(url);
