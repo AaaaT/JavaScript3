@@ -13,8 +13,11 @@ class Repository {
    * @param {HTMLElement} container The container element in which to render the repository.
    */
   render(container) {
-    // TODO: replace the next line with your code.
-    Util.createAndAppend('pre', container, JSON.stringify(this.repository, null, 2));
+    App.clearContainer(container);
+    Util.createAndAppend('h4', container, {text:this.name()} );
+    Util.createAndAppend('p', container, {text:this.repository.forks} );
+    Util.createAndAppend('p', container, {text:this.repository.created_at} );
+    Util.createAndAppend('p', container, {text:this.repository.description} );
   }
 
   /**

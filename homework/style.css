@@ -1,4 +1,4 @@
-header {
+#header {
     background-color: rgb(116, 56, 13); 
     color: white; 
     padding: 1rem; 
@@ -32,7 +32,7 @@ select {
     margin: 1 rem;
 }
 
-#forRepoBlock {
+#repo-info {
     color: rgb(43, 0, 43);
     font-size: .9rem;
     padding: 4px 4px;
@@ -48,7 +48,7 @@ select {
 
     box-shadow: 10px 5px 5px grey;
 }
-#forContributorsBlock {
+#repo-contributors {
     color: rgb(48, 0, 20);
     font-size: .9rem;
     padding: 4px 4px;

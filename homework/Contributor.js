@@ -13,7 +13,7 @@ class Contributor {
    * @param {HTMLElement} container The container element in which to render the contributor.
    */
   render(container) {
-    // TODO: replace the next line with your code.
-    Util.createAndAppend('pre', container, JSON.stringify(this.contributor, null, 2));
+    Util.createAndAppend('img', container, {src: this.contributor.avatar_url, width: 30} );
+    Util.createAndAppend('p', container, {text: this.contributor.login} );
   }
 }
